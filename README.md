@@ -8,4 +8,4 @@ Operations:
 - Divide.
 
 [Live Demo](https://sarahdavis2.github.io/calculator)
-![alt text](.img/calculator.png)
+![alt text](../img/calculator.png)
