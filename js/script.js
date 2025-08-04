@@ -10,10 +10,10 @@ function operate(num1, operator, num2) {
         case '-':
             result = subtract(num1, num2);
             break;
-        case '*':
+        case 'x':
             result = multiply(num1, num2);
             break;
-        case '/':
+        case '÷':
             result = divide(num1, num2);
             break;
     }
@@ -44,30 +44,40 @@ let operator = "";
 const EMPTY_STR = "";
 
 function delegateBtnEvents() {
-    let inputNum = "";
-
     const btns = document.querySelectorAll("button");
     btns.forEach((btn) => {
         btn.addEventListener("click", (e) => {
             switch (e.target.className) {
                 case "btn-num":
-                    inputNum = getInputNum(e, inputNum);
-                    showInputNum(inputNum);
+                    runBtnNum(e);
                     break;
                 case "btn-operator":
+                    runBtnOperator(e);
                     break;
                 case "btn-calculate":
-                    // Operate global args
-                    let result = operate(num1, operator, num2);
-                    showInputNum(result);
+                    runBtnCalculate();
                     break;
                 case "btn-clear":
-                    clearAll();
-                    showInputNum(EMPTY_STR);
+                    runBtnClear();
                     break;
             }
+
+                console.log(`num1: ${num1}`);
+                console.log(`num2: ${num2}`);
+                console.log(`operator: ${operator}`);
         });
+        
     });
+}
+
+function runBtnNum(event) {
+    if (operator === "") {
+        num1 =  getInputNum(event, num1);
+        showInputNum(num1);
+    } else {
+        num2 = getInputNum(event, num2);;
+        showInputNum(num2);
+    }
 }
 
 function getInputNum(event, num) {
@@ -77,6 +87,32 @@ function getInputNum(event, num) {
 function showInputNum(num) {
     const divShowResults = document.querySelector(".show-results");
     divShowResults.textContent = num;
+}
+
+function runBtnOperator(event) {
+    if (operator === "") {
+        setOperator(event);
+    } else {
+        runBtnCalculate();
+        setOperator(event);
+    }
+}
+
+function setOperator(event) {
+    operator = event.target.textContent;
+}
+
+function runBtnCalculate() {
+    let result = operate(parseInt(num1), operator, parseInt(num2));
+    num1 = result;
+    num2 = "";
+    operator = "";
+    showInputNum(num1);
+}
+
+function runBtnClear() {
+    clearAll();
+    showInputNum(EMPTY_STR);
 }
 
 function clearAll() {
