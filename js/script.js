@@ -107,7 +107,10 @@ function runBtnOperator(event) {
     if (operator === "") {
         setOperator(event);
     } else {
-        runBtnCalculate();
+        num1 = calculate();
+        num2 = "";
+        operator = "";
+        showInputNum(num1);
         setOperator(event);
     }
     
@@ -128,6 +131,12 @@ function setOperator(event) {
 }
 
 function runBtnCalculate() {
+    num1 = calculate();
+    showInputNum(num1);
+    clearAll();
+}
+
+function calculate() {
     if (!(num1 && operator && num2)) return;
     toggleCurrentOperator();
     if (operator === "÷" && num2 === "0") {
@@ -135,11 +144,7 @@ function runBtnCalculate() {
         operator = "";
         return;
     }
-    let result = operate(parseInt(num1), operator, parseInt(num2));
-    num1 = result;
-    num2 = "";
-    operator = "";
-    showInputNum(num1);
+    return operate(parseInt(num1), operator, parseInt(num2));
 }
 
 function runBtnClear() {
@@ -155,4 +160,4 @@ function clearAll() {
 }
 
 // TODO: new digit after calculation starts a new calc
-// round decimals, add backspace button, add keyboard support
+// add backspace button, add keyboard support
