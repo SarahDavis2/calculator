@@ -1,6 +1,7 @@
-let num1 = 0;
-let num2 = 0;
-let operator = '';
+let num1 = "";
+let num2 = "";
+let operator = "";
+const EMPTY_STR = "";
 
 delegateBtnEvents();
 
@@ -22,6 +23,7 @@ function operate(num1, operator, num2) {
     }
 }
 
+// Pre: input must be numbers
 function add(num1, num2) {
     return num1 + num2;
 }
@@ -55,6 +57,8 @@ function delegateBtnEvents() {
                 case "btn-calculate":
                     break;
                 case "btn-clear":
+                    clearAll();
+                    showInputNum(EMPTY_STR);
                     break;
             }
         });
@@ -68,4 +72,10 @@ function getInputNum(event, num) {
 function showInputNum(num) {
     const divShowResults = document.querySelector(".show-results");
     divShowResults.textContent = num;
+}
+
+function clearAll() {
+    num1 = "";
+    num2 = "";
+    operator = "";
 }
