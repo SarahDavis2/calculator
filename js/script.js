@@ -63,6 +63,9 @@ function delegateBtnEvents() {
                 case "btn-clear":
                     runBtnClear();
                     break;
+                case "btn-backspace":
+                    runBtnBackspace();
+                    break;
             }
 
             console.log(`num1: ${num1}`);
@@ -159,5 +162,20 @@ function clearAll() {
     operator = "";
 }
 
-// TODO: new digit after calculation starts a new calc
-// add backspace button, add keyboard support
+function runBtnBackspace() {
+    const divShowResults = document.querySelector(".show-results");
+    numShowResults = divShowResults.textContent;
+    deletedDigitNum = numShowResults
+        .split('')
+        .slice(0, -1)
+        .join('');
+
+    if (divShowResults.textContent === num1) {
+        num1 = deletedDigitNum;
+    } else {
+        num2 = deletedDigitNum;
+    }
+    showInputNum(deletedDigitNum);
+}
+
+// TODO: add backspace button, add keyboard support

@@ -83,9 +83,13 @@ button:hover {
     margin: 4px 2px;
 }
 
-.btn-clear {
+.lower-btn-container * {
     font-size: 16px;
-    width: 60%;
     align-self: center;
     padding: 10px;
+    margin: 0 4px;
+}
+
+.btn-clear {
+    width: 60%;
 }
