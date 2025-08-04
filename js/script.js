@@ -48,6 +48,8 @@ function delegateBtnEvents() {
     btns.forEach((btn) => {
         btn.addEventListener("click", (e) => {
             switch (e.target.className) {
+                case "btn-num btn-decimal":
+                    if(isDecimal()) break;
                 case "btn-num":
                     runBtnNum(e);
                     break;
@@ -68,6 +70,11 @@ function delegateBtnEvents() {
         });
         
     });
+}
+
+function isDecimal() {
+    const divShowResults = document.querySelector(".show-results");
+    if (divShowResults.textContent.includes(".")) return true; else return false;
 }
 
 function runBtnNum(event) {
@@ -115,7 +122,13 @@ function setOperator(event) {
 }
 
 function runBtnCalculate() {
+    if (!(num1 && operator && num2)) return;
     toggleCurrentOperator();
+    if (operator === "÷" && num2 === "0") {
+        showInputNum("ERROR!");
+        operator = "";
+        return;
+    }
     let result = operate(parseInt(num1), operator, parseInt(num2));
     num1 = result;
     num2 = "";
@@ -134,3 +147,6 @@ function clearAll() {
     num2 = "";
     operator = "";
 }
+
+// TODO: new digit after calculation starts a new calc
+// disable . if used once, round decimals, add backspace button, add keyboard support
