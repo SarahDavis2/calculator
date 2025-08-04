@@ -3,6 +3,9 @@ let num2 = "";
 let operator = "";
 const EMPTY_STR = "";
 const ROUND_TO_TENTH_DECIMAL = Math.pow(10, 10);
+const INT = "0123456789.";
+const OPERATORS = "/*-+";
+const IS_KEY = true;
 
 delegateBtnEvents();
 
@@ -77,26 +80,29 @@ function delegateBtnEvents() {
 }
 
 function isDecimal() {
-    const divShowResults = document.querySelector(".show-results");
-    if (divShowResults.textContent.includes(".")) return true; else return false;
+    if (num1.includes(".")) return true; else return false;
 }
 
-function runBtnNum(event) {
+function runBtnNum(event, isKey = false) {
     if (operator === "") {
-        num1 =  getInputNum(event, num1);
+        num1 =  getInputNum(event, num1, isKey);
         showInputNum(num1);
     } else {
-        num2 = getInputNum(event, num2);;
+        num2 = getInputNum(event, num2, isKey);;
         showInputNum(num2);
     }
 }
 
-function getInputNum(event, num) {
-    return num + event.target.textContent;
+function getInputNum(event, prvNum, isKey) {
+    if (isKey) {
+        num = prvNum + event.key;
+    } else {
+        num = prvNum + event.target.textContent;
+    }
+    return num;
 }
 
 function showInputNum(num) {
-    num = roundDecimal(num);
     const divShowResults = document.querySelector(".show-results");
     divShowResults.textContent = num;
 }
@@ -105,18 +111,18 @@ function roundDecimal(num) {
     return (Math.round(num * ROUND_TO_TENTH_DECIMAL) / ROUND_TO_TENTH_DECIMAL);
 }
 
-function runBtnOperator(event) {
+function runBtnOperator(event, isKey = false) {
     toggleCurrentOperator();
     if (operator === "") {
-        setOperator(event);
+        setOperator(event, isKey);
 
         const divShowResults = document.querySelector(".show-results");
         num1 = divShowResults.textContent
     } else {
         num1 = calculate();
         num2 = "";
-        showInputNum(num1);
-        setOperator(event);
+        showResult(num1);
+        setOperator(event, isKey);
     }
     
     event.target.classList.toggle("button-pressed");
@@ -131,13 +137,21 @@ function toggleCurrentOperator() {
     });
 }
 
-function setOperator(event) {
-    operator = event.target.textContent;
+function setOperator(event, isKey) {
+    if (isKey === true) {
+        let key = event.key;
+
+        if (event.key === "*") key = "x";
+        if (event.key === "/") key = "÷";
+        operator = key;
+    } else {
+        operator = event.target.textContent;
+    }
 }
 
 function runBtnCalculate() {
     num1 = calculate();
-    showInputNum(num1);
+    showResult(num1);
     clearAll();
 }
 
@@ -149,7 +163,13 @@ function calculate() {
         operator = "";
         return;
     }
-    return operate(parseInt(num1), operator, parseInt(num2));
+    return operate(Number(num1), operator, Number(num2));
+}
+
+function showResult(num) {
+    num = roundDecimal(num);
+    const divShowResults = document.querySelector(".show-results");
+    divShowResults.textContent = num;
 }
 
 function runBtnClear() {
@@ -181,3 +201,24 @@ function runBtnBackspace() {
 }
 
 // KEYBOARD FUNCTIONALITY
+document.addEventListener("keydown", (e) => {
+    if (INT.includes(e.key)) {
+        console.log(e.key);
+        if(!isDecimal()) {
+            runBtnNum(e, IS_KEY);
+        }
+    } else if (OPERATORS.includes(e.key)) {
+        console.log(e.key);
+        runBtnOperator(e, IS_KEY);
+    } else if (e.key === "Enter") {
+        console.log("Enter");
+        runBtnCalculate();
+    } else if (e.key === "Backspace") {
+        console.log("Backspace");
+        runBtnBackspace();
+    }
+
+    console.log(`num1: ${num1}`);
+    console.log(`num2: ${num2}`);
+    console.log(`operator: ${operator}`);
+});
