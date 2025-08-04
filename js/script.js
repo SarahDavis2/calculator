@@ -1,26 +1,23 @@
-let num1 = "";
-let num2 = "";
-let operator = "";
-const EMPTY_STR = "";
-
 delegateBtnEvents();
 
 // CALCULATOR OPERATOR FUNCTIONS
 function operate(num1, operator, num2) {
+    let result = 0;
     switch (operator) {
         case '+':
-            let sum = add(num1, num2);
+            result = add(num1, num2);
             break;
         case '-':
-            let difference = subtract(num1, num2);
+            result = subtract(num1, num2);
             break;
         case '*':
-            let product = multiply(num1, num2);
+            result = multiply(num1, num2);
             break;
         case '/':
-            let quotient = divide(num1, num2);
+            result = divide(num1, num2);
             break;
     }
+    return result;
 }
 
 // Pre: input must be numbers
@@ -41,6 +38,11 @@ function divide(num1, num2) {
 }
 
 // BUTTON FUNCTIONALITY
+let num1 = "";
+let num2 = "";
+let operator = "";
+const EMPTY_STR = "";
+
 function delegateBtnEvents() {
     let inputNum = "";
 
@@ -55,6 +57,9 @@ function delegateBtnEvents() {
                 case "btn-operator":
                     break;
                 case "btn-calculate":
+                    // Operate global args
+                    let result = operate(num1, operator, num2);
+                    showInputNum(result);
                     break;
                 case "btn-clear":
                     clearAll();
