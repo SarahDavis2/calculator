@@ -70,6 +70,7 @@ function delegateBtnEvents() {
                     runBackspace();
                     break;
             }
+            e.target.blur();
         });
     });
 }
@@ -119,8 +120,7 @@ function runOperator(event, isKey = false) {
         showResult(num1);
         setOperator(event, isKey);
     }
-    
-    event.target.classList.toggle("button-pressed");
+        event.target.classList.toggle("button-pressed");
 }
 
 function toggleCurrentOperator() {
@@ -146,12 +146,13 @@ function setOperator(event, isKey) {
 
 function runCalculate() {
     num1 = calculate();
+    if (num1 === "" || operator === "" || num2 === "") return;
     showResult(num1);
     clearAll();
+
 }
 
 function calculate() {
-    if (!(num1 && operator && num2)) return;
     toggleCurrentOperator();
     if (operator === "÷" && num2 === "0") {
         showInputNum("ERROR!");
@@ -204,6 +205,7 @@ document.addEventListener("keydown", (e) => {
     } else if (OPERATORS.includes(e.key)) {
         runOperator(e, IS_KEY);
     } else if (e.key === "Enter") {
+        e.preventDefault();
         runCalculate();
     } else if (e.key === "Backspace") {
         runBackspace();
