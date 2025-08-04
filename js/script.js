@@ -62,9 +62,9 @@ function delegateBtnEvents() {
                     break;
             }
 
-                console.log(`num1: ${num1}`);
-                console.log(`num2: ${num2}`);
-                console.log(`operator: ${operator}`);
+            console.log(`num1: ${num1}`);
+            console.log(`num2: ${num2}`);
+            console.log(`operator: ${operator}`);
         });
         
     });
@@ -90,12 +90,24 @@ function showInputNum(num) {
 }
 
 function runBtnOperator(event) {
+    toggleCurrentOperator();
     if (operator === "") {
         setOperator(event);
     } else {
         runBtnCalculate();
         setOperator(event);
     }
+    
+    event.target.classList.toggle("button-pressed");
+}
+
+function toggleCurrentOperator() {
+    const operators = document.querySelectorAll(".btn-operator");
+    operators.forEach((operator) => {
+        if (operator.classList.contains("button-pressed")) {
+            operator.classList.toggle("button-pressed");
+        }
+    });
 }
 
 function setOperator(event) {
@@ -103,6 +115,7 @@ function setOperator(event) {
 }
 
 function runBtnCalculate() {
+    toggleCurrentOperator();
     let result = operate(parseInt(num1), operator, parseInt(num2));
     num1 = result;
     num2 = "";
@@ -111,6 +124,7 @@ function runBtnCalculate() {
 }
 
 function runBtnClear() {
+    toggleCurrentOperator();
     clearAll();
     showInputNum(EMPTY_STR);
 }

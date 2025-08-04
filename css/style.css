@@ -68,7 +68,7 @@ button:hover {
 }
 
 .button-pressed {
-    background-color: #455cdd;
+    color: #ac4956;
 }
 
 .btn-container {
