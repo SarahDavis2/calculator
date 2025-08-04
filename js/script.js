@@ -55,27 +55,22 @@ function delegateBtnEvents() {
                 case "btn-num btn-decimal":
                     if(isDecimal()) break;
                 case "btn-num":
-                    runBtnNum(e);
+                    runInputNum(e);
                     break;
                 case "btn-operator":
-                    runBtnOperator(e);
+                    runOperator(e);
                     break;
                 case "btn-calculate":
-                    runBtnCalculate();
+                    runCalculate();
                     break;
                 case "btn-clear":
                     runBtnClear();
                     break;
                 case "btn-backspace":
-                    runBtnBackspace();
+                    runBackspace();
                     break;
             }
-
-            console.log(`num1: ${num1}`);
-            console.log(`num2: ${num2}`);
-            console.log(`operator: ${operator}`);
         });
-        
     });
 }
 
@@ -83,7 +78,7 @@ function isDecimal() {
     if (num1.includes(".")) return true; else return false;
 }
 
-function runBtnNum(event, isKey = false) {
+function runInputNum(event, isKey = false) {
     if (operator === "") {
         num1 =  getInputNum(event, num1, isKey);
         showInputNum(num1);
@@ -111,7 +106,7 @@ function roundDecimal(num) {
     return (Math.round(num * ROUND_TO_TENTH_DECIMAL) / ROUND_TO_TENTH_DECIMAL);
 }
 
-function runBtnOperator(event, isKey = false) {
+function runOperator(event, isKey = false) {
     toggleCurrentOperator();
     if (operator === "") {
         setOperator(event, isKey);
@@ -149,7 +144,7 @@ function setOperator(event, isKey) {
     }
 }
 
-function runBtnCalculate() {
+function runCalculate() {
     num1 = calculate();
     showResult(num1);
     clearAll();
@@ -184,7 +179,7 @@ function clearAll() {
     operator = "";
 }
 
-function runBtnBackspace() {
+function runBackspace() {
     const divShowResults = document.querySelector(".show-results");
     numShowResults = divShowResults.textContent;
     deletedDigitNum = numShowResults
@@ -203,22 +198,14 @@ function runBtnBackspace() {
 // KEYBOARD FUNCTIONALITY
 document.addEventListener("keydown", (e) => {
     if (INT.includes(e.key)) {
-        console.log(e.key);
         if(!isDecimal()) {
-            runBtnNum(e, IS_KEY);
+            runInputNum(e, IS_KEY);
         }
     } else if (OPERATORS.includes(e.key)) {
-        console.log(e.key);
-        runBtnOperator(e, IS_KEY);
+        runOperator(e, IS_KEY);
     } else if (e.key === "Enter") {
-        console.log("Enter");
-        runBtnCalculate();
+        runCalculate();
     } else if (e.key === "Backspace") {
-        console.log("Backspace");
-        runBtnBackspace();
+        runBackspace();
     }
-
-    console.log(`num1: ${num1}`);
-    console.log(`num2: ${num2}`);
-    console.log(`operator: ${operator}`);
 });
