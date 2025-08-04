@@ -109,10 +109,12 @@ function runBtnOperator(event) {
     toggleCurrentOperator();
     if (operator === "") {
         setOperator(event);
+
+        const divShowResults = document.querySelector(".show-results");
+        num1 = divShowResults.textContent
     } else {
         num1 = calculate();
         num2 = "";
-        operator = "";
         showInputNum(num1);
         setOperator(event);
     }
@@ -178,4 +180,4 @@ function runBtnBackspace() {
     showInputNum(deletedDigitNum);
 }
 
-// TODO: add backspace button, add keyboard support
+// KEYBOARD FUNCTIONALITY
