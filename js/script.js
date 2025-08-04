@@ -1,3 +1,9 @@
+let num1 = "";
+let num2 = "";
+let operator = "";
+const EMPTY_STR = "";
+const ROUND_TO_TENTH_DECIMAL = Math.pow(10, 10);
+
 delegateBtnEvents();
 
 // CALCULATOR OPERATOR FUNCTIONS
@@ -38,11 +44,6 @@ function divide(num1, num2) {
 }
 
 // BUTTON FUNCTIONALITY
-let num1 = "";
-let num2 = "";
-let operator = "";
-const EMPTY_STR = "";
-
 function delegateBtnEvents() {
     const btns = document.querySelectorAll("button");
     btns.forEach((btn) => {
@@ -92,8 +93,13 @@ function getInputNum(event, num) {
 }
 
 function showInputNum(num) {
+    num = roundDecimal(num);
     const divShowResults = document.querySelector(".show-results");
     divShowResults.textContent = num;
+}
+
+function roundDecimal(num) {
+    return (Math.round(num * ROUND_TO_TENTH_DECIMAL) / ROUND_TO_TENTH_DECIMAL);
 }
 
 function runBtnOperator(event) {
@@ -149,4 +155,4 @@ function clearAll() {
 }
 
 // TODO: new digit after calculation starts a new calc
-// disable . if used once, round decimals, add backspace button, add keyboard support
+// round decimals, add backspace button, add keyboard support
