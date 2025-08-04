@@ -1,5 +1,5 @@
 # Basic Calculator
-Calculates basic math operations wth a pair of numbers and one operator. The calculator GUI gets input through buttons and displays results with visuals through HTML, CSS, and JS.
+Calculates basic math operations wth a pair of numbers and one operator. The calculator GUI gets input through either buttons or the keyboard and displays results with visuals through HTML, CSS, and JS.
 
 Operations:
 - Add.
@@ -8,4 +8,5 @@ Operations:
 - Divide.
 
 [Live Demo](https://sarahdavis2.github.io/calculator)
+
 ![alt text](./img/calculator.png)
