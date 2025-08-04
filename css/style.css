@@ -71,7 +71,7 @@ button:hover {
     flex: 1;
 }
 
-.btn-input {
+.btn-container button {
     /* 5 is to have 4 items per row */
     width: calc(100% / 5);
     font-size: 20px;

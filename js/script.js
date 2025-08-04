@@ -46,9 +46,16 @@ function delegateBtnEvents() {
     btns.forEach((btn) => {
         btn.addEventListener("click", (e) => {
             switch (e.target.className) {
-                case "btn-input btn-num":
+                case "btn-num":
                     inputNum = getInputNum(e, inputNum);
                     showInputNum(inputNum);
+                    break;
+                case "btn-operator":
+                    break;
+                case "btn-calculate":
+                    break;
+                case "btn-clear":
+                    break;
             }
         });
     });
